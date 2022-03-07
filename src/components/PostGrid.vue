@@ -1,28 +1,44 @@
 <template>
-  <div class="flex-1 flex-wrap">
-    <div
-      v-for="(post, index) in posts"
-      :key=index
-      class="w-full md:w-1/2 lg:w-1/3 border border-round-1 border-slate-2 flex flex-col"
+  <div class="flex-1 flex-wrap max-w-3xl justify-center items-center py-5">
+    <Post v-for="(post, index) in posts" :key=index :post="post" />
+    <button
+      class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+      @click.prevent="loadMore"
     >
-      <h3>Author: {{post.author}}</h3>
-      <h5>Created: {{post.time}}</h5>
-      <a class="text-blue-600" :href="post.internalLink">Hacker News link</a>
-      <a class="text-blue-600" :href="post.externalLink">External Link</a>
-    </div>
+      {{ loading }}
+    </button>
   </div>
 </template>
 
 <script>
+import Post from "./Post"
 import { mapActions, mapGetters } from "vuex";
 export default {
 
+  data() {
+    return {
+      isLoading: false,
+    }
+  },
+
+  components: {
+    Post,
+  },
+
   methods: {
     ...mapActions(["getPosts"]),
+    async loadMore() {
+      this.isLoading = true
+      await this.getPosts()
+      this.isLoading = false
+    }
   },
 
   computed: {
-    ...mapGetters(['posts'])
+    ...mapGetters(['posts']),
+    loading() {
+      return this.isLoading? "Loading" : "Load 20 more"
+    }
   }
 }
 </script>

@@ -15,7 +15,7 @@ export default new Vuex.Store({
     },
     addPosts(state, posts) {
       state.posts.push(posts)
-      state.loaded += posts.length
+      state.loaded += 1
     }
   },
   actions: {
@@ -49,6 +49,7 @@ export default new Vuex.Store({
       return state.posts.map(e => {
         return {
           author: e.by,
+          title: e.title,
           time: Date(e.time * 1000),
           externalLink: e.url,
           internalLink: "https://news.ycombinator.com/item?id=" + e.id,

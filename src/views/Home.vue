@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <div class="home flex flex-col items-center justify-center">
     <div class="my-5">
-      <h1 class="text-lg">Top posts from hackernews!</h1>
+      <h1 class="text-3xl">Top posts from hackernews!</h1>
     </div>
     <post-grid />
   </div>
