@@ -28,6 +28,9 @@ export default {
   methods: {
     ...mapActions(["getPosts"]),
     async loadMore() {
+      if (this.$store.state.loaded >= 100) {
+        alert("100 top posts reached!")
+      }
       this.isLoading = true
       await this.getPosts()
       this.isLoading = false
