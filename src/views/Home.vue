@@ -1,18 +1,24 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Testing, attention please</h1>
+    <p>feel the tension as soon as someone mentions me</p>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+
+  async created() {
+    await this.getMostPopular()
+    console.log(this.$store.state.mostPopular)
+  },
+
+  methods: {
+    ...mapActions(['getMostPopular']),
+
   }
 }
 </script>
